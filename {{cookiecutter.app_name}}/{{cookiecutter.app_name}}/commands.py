@@ -36,8 +36,8 @@ def test():
     help="Don't make any changes to files, just confirm they are formatted correctly",
 )
 def lint(fix_imports, check):
-    """Lint and check code style with black, flake8 and isort."""
-    skip = ["node_modules", "requirements", "migrations"]
+    """Lint and check code style with black, flake8, and isort."""
+    skip = ["requirements", "migrations"]
     root_files = glob("*.py")
     root_directories = [
         name for name in next(os.walk("."))[1] if not name.startswith(".")

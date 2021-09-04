@@ -12,7 +12,6 @@ from {{cookiecutter.app_name}}.extensions import (
     csrf_protect,
     db,
     debug_toolbar,
-    flask_static_digest,
     login_manager,
     migrate,
 )
@@ -43,7 +42,6 @@ def register_extensions(app):
     login_manager.init_app(app)
     debug_toolbar.init_app(app)
     migrate.init_app(app, db)
-    flask_static_digest.init_app(app)
     return None
 
 

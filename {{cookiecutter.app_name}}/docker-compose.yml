@@ -2,7 +2,6 @@ version: "3.6"
 
 x-build-args: &build_args
   INSTALL_PYTHON_VERSION: {{cookiecutter.python_version}}
-  INSTALL_NODE_VERSION: {{cookiecutter.node_version}}
 
 x-default-volumes: &default_volumes
   volumes:
