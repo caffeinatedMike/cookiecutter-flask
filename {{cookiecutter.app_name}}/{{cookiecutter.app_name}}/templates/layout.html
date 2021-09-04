@@ -10,7 +10,7 @@
   <head>
     <meta charset="utf-8" />
 
-    <link rel="shortcut icon" href="{{static_url_for('static', filename='build/img/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/favicon.ico') }}">
     <title>
       {% block page_title %} {% endraw %}
       {{ cookiecutter.project_name }}
@@ -28,7 +28,17 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{{ static_url_for('static', filename='build/main_css.bundle.css') }}"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/fontawesome-free.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/style.css') }}"
     />
 
     {% block css %}{% endblock %}
@@ -62,7 +72,9 @@
     {% include "footer.html" %}
 
     <!-- JavaScript at the bottom for fast page loading -->
-    <script src="{{ static_url_for('static', filename='build/main_js.bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/fontawesome-free.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     {% block js %}{% endblock %}
     <!-- end scripts -->
     {% endblock %}
