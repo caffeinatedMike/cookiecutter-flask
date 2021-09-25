@@ -56,8 +56,6 @@ After you have generated the project code, a few more steps must be taken before
 - Procfile for deploying to a PaaS (e.g. Heroku)
 - pytest and Factory-Boy for testing (example tests included)
 - Flask's Click CLI configured with simple commands
-- CSS and JS minification using webpack
-- npm support for frontend package management
 - Caching using Flask-Cache
 - Useful debug toolbar
 - Utilizes best practices: [Blueprints](http://flask.pocoo.org/docs/blueprints/) and [Application Factory](http://flask.pocoo.org/docs/patterns/appfactories/) patterns
@@ -81,6 +79,11 @@ After you have generated the project code, a few more steps must be taken before
 MIT licensed.
 
 ## Changelog
+
+### Personal
+
+- Remove node-related items
+- Removed Webpack
 
 ### Unreleased
 
