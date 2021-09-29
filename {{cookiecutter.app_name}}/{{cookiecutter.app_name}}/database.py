@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """Database module, including the SQLAlchemy database object and DB-related utilities."""
-from .compat import basestring
 from .extensions import db
 
 # Alias common SQLAlchemy names
@@ -57,7 +56,7 @@ class PkModel(Model):
         """Get record by ID."""
         if any(
             (
-                isinstance(record_id, basestring) and record_id.isdigit(),
+                isinstance(record_id, (str, bytes)) and record_id.isdigit(),
                 isinstance(record_id, (int, float)),
             )
         ):
