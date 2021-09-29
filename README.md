@@ -10,27 +10,6 @@ See [this repo](https://github.com/jamescurtin/demo-cookiecutter-flask) for an e
 
 ## Use it now
 
-### Docker **(This is the preferred method for creating a new project)**
-
-```bash
-# Basic usage (You will be prompted to provide basic information about your application)
-$ ./cookiecutter-docker.sh
-    full_name [Steven Loria]:
-
-# Additional arguments are available
-$ ./cookiecutter-docker.sh --help
-    Usage: ./cookiecutter-docker.sh [OPTIONS]
-
-Options:
-    -b, --build    Build Docker image before running cookiecutter
-    -t, --template Specify custom cookiecutter template via a URI to a git repo
-                    e.g. https://github.com/cookiecutter-flask/cookiecutter-flask.git
-                    Defaults to template in current working directory
-    -h, --help     Show this message and exit
-```
-
-### Standard
-
 If using standard instructions, Python ≥ 3.6 is required. A virtual environment is recommended (like `virtualenv`).
 
 ```bash
@@ -82,17 +61,10 @@ MIT licensed.
 
 ### Personal
 
-- Remove node-related items
-- Removed Webpack
-
-### Unreleased
-
-- Update all node dependencies to latest versions
-- Switch to using Github Actions for template CI
-- Remove support for Node 10 as a Cookiecutter option
-- Refactored Docker image to use multistage builds more efficiently
-- Projects generated with the template use Github actions for CI
-- Upgrade Webpack to 5.x
+- Removed Docker-related items
+- Removed pipenv-related items
+- Removed NodeJS-related items
+- Removed Webpack-related items
 
 ### 18.0.0 (09/09/2018)
 
