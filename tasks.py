@@ -75,11 +75,3 @@ def no_placeholders(ctx):
                     )
         except UnicodeDecodeError:
             pass
-
-
-@task(pre=[clean, build])
-def test_image_build(ctx):
-    """Run tests."""
-    os.chdir(COOKIE)
-    os.environ["DOCKER_BUILDKIT"] = "1"
-    ctx.run("docker-compose build flask-dev", echo=True)
