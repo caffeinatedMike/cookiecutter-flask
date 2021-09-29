@@ -31,22 +31,6 @@ def log_module_name_warning(module_name, logger):
     logger.warning(warning)
 
 
-def check_python_version():
-    python_major_version = sys.version_info[0]
-    python_minor_version = sys.version_info[1]
-    # Must remain compatible with Python 2 to provide useful error message.
-    warning = (
-        "\nWARNING: You are running cookiecutter using "
-        "Python {}.{}, but a version >= Python 3.6+ is required.\n"
-        "Either install a more recent version of Python, or use the Docker instructions.\n"
-    ).format(python_major_version, python_minor_version)
-    if (python_major_version == 2) or (
-        python_major_version == 3 and python_minor_version < 6
-    ):
-        _logger.warning(warning)
-        sys.exit(1)
-
-
 def validate_python_module_name():
     module_name = "{{ cookiecutter.app_name }}"
     if not re.match(MODULE_REGEX, module_name):
@@ -55,5 +39,4 @@ def validate_python_module_name():
 
 
 if __name__ == "__main__":
-    check_python_version()
     validate_python_module_name()

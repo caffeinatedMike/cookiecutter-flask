@@ -69,12 +69,6 @@ interactions = [
         "Should this project use pipenv?",
         default=False,
     ),
-    columbo.Choice(
-        "python_version",
-        "Which version of Python will this application use?",
-        options=["3.8", "3.7", "3.6"],
-        default="3.8",
-    ),
     columbo.Confirm(
         "use_heroku",
         "Will this project be deployed using heroku?",
