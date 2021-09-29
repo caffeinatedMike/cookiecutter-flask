@@ -9,15 +9,9 @@ _logger = logging.getLogger()
 
 
 def clean_extra_package_management_files():
-    """Removes either requirements files and folder or the Pipfile."""
-    use_pipenv = "{{cookiecutter.use_pipenv}}"
+    """Removes either requirements files and folder."""
     use_heroku = "{{cookiecutter.use_heroku}}"
     to_delete = []
-
-    if use_pipenv == "True":
-        to_delete = to_delete + ["requirements.txt", "requirements"]
-    else:
-        to_delete.append("Pipfile")
 
     if use_heroku == "False":
         to_delete = to_delete + ["Procfile", "app.json"]

@@ -65,11 +65,6 @@ interactions = [
         default="A flasky app.",
     ),
     columbo.Confirm(
-        "use_pipenv",
-        "Should this project use pipenv?",
-        default=False,
-    ),
-    columbo.Confirm(
         "use_heroku",
         "Will this project be deployed using heroku?",
         default=False,
