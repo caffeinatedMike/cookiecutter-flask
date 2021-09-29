@@ -13,10 +13,21 @@ TEST_PATH = os.path.join(PROJECT_ROOT, "tests")
 
 @click.command()
 def test():
-    """Run the tests."""
+    """Run the tests with code coverage report."""
     import pytest
 
-    rv = pytest.main([TEST_PATH, "--verbose"])
+    rv = pytest.main(
+        [
+            TEST_PATH,
+            "--verbose",
+            "--cov",
+            "{{ cookiecutter.app_name }}",
+            "--cov-report",
+            "html",
+            "--cov-report",
+            "term",
+        ]
+    )
     exit(rv)
 
 
