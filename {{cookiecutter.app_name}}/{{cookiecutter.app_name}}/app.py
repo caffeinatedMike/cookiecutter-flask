@@ -2,6 +2,7 @@
 """The app module, containing the app factory function."""
 import logging
 import sys
+import os
 
 from flask import Flask, render_template
 
@@ -16,7 +17,11 @@ from {{cookiecutter.app_name}}.extensions import (
     login_manager,
     migrate,
 )
-from {{cookiecutter.app_name}}.admin.views import SecureAdminIndexView
+from {{cookiecutter.app_name}}.admin.views import (
+    SecureAdminIndexView,
+    UploadView,
+    UserView,
+)
 
 
 def create_app(config_object="{{cookiecutter.app_name}}.settings"):
@@ -27,6 +32,7 @@ def create_app(config_object="{{cookiecutter.app_name}}.settings"):
     app = Flask(__name__.split(".")[0])
     app.config.from_object(config_object)
     register_extensions(app)
+    register_admin_components()
     register_blueprints(app)
     register_errorhandlers(app)
     register_shellcontext(app)
@@ -46,6 +52,14 @@ def register_extensions(app):
     debug_toolbar.init_app(app)
     migrate.init_app(app, db)
     return None
+
+
+def register_admin_components():
+    uploads_folder = os.path.join(os.path.dirname(__file__), "static", "uploads")
+    if not os.path.exists(uploads_folder):
+        os.mkdir(uploads_folder)
+    admin.add_view(UserView(User, db.session, name="Users", endpoint="users"))
+    admin.add_view(UploadView(uploads_folder, name="Uploads", endpoint="uploads"))
 
 
 def register_blueprints(app):
