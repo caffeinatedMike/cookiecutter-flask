@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Click commands."""
 import os
-from glob import glob
 from subprocess import call
 
 import click
@@ -48,18 +47,11 @@ def test():
 )
 def lint(fix_imports, check):
     """Lint and check code style with black, flake8, and isort."""
-    skip = ["requirements", "migrations"]
-    root_files = glob("*.py")
-    root_directories = [
-        name for name in next(os.walk("."))[1] if not name.startswith(".")
-    ]
-    files_and_directories = [
-        arg for arg in root_files + root_directories if arg not in skip
-    ]
+    directories = ["{{ cookiecutter.app_name }}", "tests"]
 
     def execute_tool(description, *args):
         """Execute a checking tool with its arguments."""
-        command_line = list(args) + files_and_directories
+        command_line = list(args) + directories
         click.echo(f"{description}: {' '.join(command_line)}")
         rv = call(command_line)
         if rv != 0:
