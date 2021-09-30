@@ -7,6 +7,7 @@ from flask import Flask, render_template
 
 from {{cookiecutter.app_name}} import commands, public, user
 from {{cookiecutter.app_name}}.extensions import (
+    admin
     bcrypt,
     cache,
     csrf_protect,
@@ -15,6 +16,7 @@ from {{cookiecutter.app_name}}.extensions import (
     login_manager,
     migrate,
 )
+from {{cookiecutter.app_name}}.admin.views import SecureAdminIndexView
 
 
 def create_app(config_object="{{cookiecutter.app_name}}.settings"):
@@ -35,6 +37,7 @@ def create_app(config_object="{{cookiecutter.app_name}}.settings"):
 
 def register_extensions(app):
     """Register Flask extensions."""
+    admin.init_app(app, index_view=SecureAdminIndexView())
     bcrypt.init_app(app)
     cache.init_app(app)
     db.init_app(app)
