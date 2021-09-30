@@ -61,6 +61,7 @@ MIT licensed.
 
 ### Personal
 
+- Added [Flask-Admin](https://flask-admin.readthedocs.io/en/latest) extension
 - Removed Docker-related items
 - Removed pipenv-related items
 - Removed NodeJS-related items
