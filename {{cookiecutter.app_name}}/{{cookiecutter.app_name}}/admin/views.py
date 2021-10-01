@@ -4,7 +4,7 @@ from flask_admin.contrib.fileadmin import FileAdmin
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
 from flask_wtf.form import Form
-from wtforms.fields import PasswordField
+from wtforms.fields import PasswordField, TextAreaField
 from wtforms.validators import Required
 
 from {{cookiecutter.app_name}}.user.models import Role, User
@@ -64,3 +64,19 @@ class UserView(SecureModelView):
         elif is_created is False:
             # updating a model whose password hasn't been changed
             del form.new_password
+
+
+"""
+class SamplePostView(SecureModelView):
+    form_columns = ("title", "body", "tags")
+    form_overrides = {"body": TextAreaField}
+
+    def render(self, template, **kwargs):
+        # Override render to provide url_for-built urls to extra_js
+        # Source: https://stackoverflow.com/a/50965247/2962937
+        self.extra_js = [  # noqa
+            url_for("static", filename="js/tinymce.min.js"),
+            url_for("static", filename="js/tinymce_instance.js")
+        ]
+        return super().render(template, **kwargs)
+"""
