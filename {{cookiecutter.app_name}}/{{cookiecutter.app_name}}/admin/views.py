@@ -2,6 +2,8 @@ from flask import redirect, request, url_for
 from flask_admin import AdminIndexView
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_admin.contrib.sqla import ModelView
+from flask_login import current_user
+from flask_wtf.form import Form
 from wtforms.fields import PasswordField
 from wtforms.validators import Required
 
@@ -49,4 +51,7 @@ class UserView(ModelView):
 
 
 class UploadView(FileAdmin):
+    # flask_wtf.form.Form used to prevent auto-csrf-validation on POSTs
+    # see: https://github.com/flask-admin/flask-admin/issues/366#issuecomment-28130576
+    form_base_class = Form
     allowed_extensions = ("jpg", "jpeg", "gif", "png")
