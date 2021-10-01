@@ -12,14 +12,23 @@ from {{cookiecutter.app_name}}.user.models import Role, User
 
 class SecureAdminIndexView(AdminIndexView):
     def is_accessible(self):
-        return current_user.is_authenticated
+        return current_user.is_authenticated and current_user.is_admin
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         return redirect(url_for("public.home", next=request.url))
 
 
-class UserView(ModelView):
+class SecureModelView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
+
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        return redirect(url_for("public.home", next=request.url))
+
+
+class UserView(SecureModelView):
     column_exclude_list = ("_password",)
     form_columns = (
         "username",
@@ -55,3 +64,10 @@ class UploadView(FileAdmin):
     # see: https://github.com/flask-admin/flask-admin/issues/366#issuecomment-28130576
     form_base_class = Form
     allowed_extensions = ("jpg", "jpeg", "gif", "png")
+
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
+
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        return redirect(url_for("public.home", next=request.url))
