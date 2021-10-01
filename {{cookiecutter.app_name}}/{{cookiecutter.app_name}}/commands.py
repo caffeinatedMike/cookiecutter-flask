@@ -4,10 +4,34 @@ import os
 from subprocess import call
 
 import click
+from flask.cli import with_appcontext
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.join(HERE, os.pardir)
 TEST_PATH = os.path.join(PROJECT_ROOT, "tests")
+
+
+@click.command("create-admin")
+@click.argument("username")
+@click.argument("email")
+@click.argument("password")
+@with_appcontext
+def create_admin(username, email, password):
+    """Create a new admin user"""
+    from {{ cookiecutter.app_name }}.extensions import db
+    from {{ cookiecutter.app_name }}.user.models import User
+
+    click.echo("creating new admin user")
+    user = User(
+        username=username,
+        email=email,
+        password=password,
+        active=True,
+        is_admin=True
+    )
+    db.session.add(user)
+    db.session.commit()
+    click.echo("created new admin user")
 
 
 @click.command()
