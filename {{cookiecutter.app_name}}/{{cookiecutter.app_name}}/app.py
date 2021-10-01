@@ -19,7 +19,7 @@ from {{cookiecutter.app_name}}.extensions import (
 )
 from {{cookiecutter.app_name}}.admin.views import (
     SecureAdminIndexView,
-    UploadView,
+    SecureFileAdmin,
     UserView,
 )
 
@@ -59,7 +59,7 @@ def register_admin_components():
     if not os.path.exists(uploads_folder):
         os.mkdir(uploads_folder)
     admin.add_view(UserView(User, db.session, name="Users", endpoint="users"))
-    admin.add_view(UploadView(uploads_folder, name="Uploads", endpoint="uploads"))
+    admin.add_view(SecureFileAdmin(uploads_folder, name="Uploads", endpoint="uploads"))
 
 
 def register_blueprints(app):

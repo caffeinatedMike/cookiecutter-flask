@@ -10,22 +10,29 @@ from wtforms.validators import Required
 from {{cookiecutter.app_name}}.user.models import Role, User
 
 
-class SecureAdminIndexView(AdminIndexView):
+class SecureMixin:
+    """Abstracted security methods for easy application to Flask-Admin views."""
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         return redirect(url_for("public.home", next=request.url))
+
+
+class SecureAdminIndexView(SecureMixin, AdminIndexView):
+    pass
+
+
+class SecureFileAdmin(SecureMixin, FileAdmin):
+    # flask_wtf.form.Form used to prevent auto-csrf-validation on POSTs
+    # see: https://github.com/flask-admin/flask-admin/issues/366#issuecomment-28130576
+    form_base_class = Form
+    allowed_extensions = ("jpg", "jpeg", "gif", "png")
 
 
 class SecureModelView(ModelView):
-    def is_accessible(self):
-        return current_user.is_authenticated and current_user.is_admin
-
-    def inaccessible_callback(self, name, **kwargs):
-        # redirect to login page if user doesn't have access
-        return redirect(url_for("public.home", next=request.url))
+    pass
 
 
 class UserView(SecureModelView):
@@ -57,17 +64,3 @@ class UserView(SecureModelView):
         elif is_created is False:
             # updating a model whose password hasn't been changed
             del form.new_password
-
-
-class UploadView(FileAdmin):
-    # flask_wtf.form.Form used to prevent auto-csrf-validation on POSTs
-    # see: https://github.com/flask-admin/flask-admin/issues/366#issuecomment-28130576
-    form_base_class = Form
-    allowed_extensions = ("jpg", "jpeg", "gif", "png")
-
-    def is_accessible(self):
-        return current_user.is_authenticated and current_user.is_admin
-
-    def inaccessible_callback(self, name, **kwargs):
-        # redirect to login page if user doesn't have access
-        return redirect(url_for("public.home", next=request.url))
