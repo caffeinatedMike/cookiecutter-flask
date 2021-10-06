@@ -8,7 +8,7 @@ from flask import Flask, render_template
 
 from {{cookiecutter.app_name}} import commands, public, user
 from {{cookiecutter.app_name}}.extensions import (
-    admin
+    admin,
     bcrypt,
     cache,
     csrf_protect,
