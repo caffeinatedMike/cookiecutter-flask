@@ -20,6 +20,18 @@ class SecureMixin:
         return redirect(url_for("public.home", next=request.url))
 
 
+class TinyMCEditorMixin:
+    """Injects TinyMCE js files to convert any textarea fields into editors."""
+    def render(self, template, **kwargs):
+        """Override render to provide url_for-built urls to extra_js
+        Source: https://stackoverflow.com/a/50965247/2962937"""
+        self.extra_js = [  # noqa
+            url_for("static", filename="js/tinymce.min.js"),
+            url_for("static", filename="js/tinymce_instance.js")
+        ]
+        return super().render(template, **kwargs)
+
+
 class SecureAdminIndexView(SecureMixin, AdminIndexView):
     pass
 
@@ -67,16 +79,7 @@ class UserView(SecureModelView):
 
 
 """
-class SamplePostView(SecureModelView):
+class SamplePostView(TinyMCEditorMixin, SecureModelView):
     form_columns = ("title", "body", "tags")
     form_overrides = {"body": TextAreaField}
-
-    def render(self, template, **kwargs):
-        # Override render to provide url_for-built urls to extra_js
-        # Source: https://stackoverflow.com/a/50965247/2962937
-        self.extra_js = [  # noqa
-            url_for("static", filename="js/tinymce.min.js"),
-            url_for("static", filename="js/tinymce_instance.js")
-        ]
-        return super().render(template, **kwargs)
 """
